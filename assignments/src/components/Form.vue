@@ -13,28 +13,28 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Enter Email Address</label>
                                 <input type="email" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Enter Email Address">
+                                    placeholder="Enter Email Address" v-model="email">
                             </div>
                         </template>
                         <template v-slot:name>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Enter Name</label>
                                 <input type="text" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Enter Name">
+                                    placeholder="Enter Name" v-model="name">
                             </div>
                         </template>
                         <template v-slot:dob>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Enter Date of Birth</label>
                                 <input type="date" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Enter Date of Birth">
+                                    placeholder="Enter Date of Birth" v-model="dob">
                             </div>
                         </template>
                         <template v-slot:password>
                             <div class="mb-3">
                                 <label for="inputPassword5" class="form-label">Enter Password</label>
                                 <input type="password" id="inputPassword5" class="form-control"
-                                    aria-labelledby="passwordHelpBlock" placeholder="Enter Password">
+                                    aria-labelledby="passwordHelpBlock" placeholder="Enter Password" v-model="password">
                                 <div id="passwordHelpBlock" class="form-text">
                                     Your password must be 8-20 characters long, contain letters and numbers, and must not
                                     contain
@@ -76,31 +76,46 @@ import InputFields from './InputFields.vue'
 
 export default {
     name: `Form`,
-    components: { InputFields },
+    components: { InputFields},
     data() {
         return {
+            name:"",
+            email:"",
+            password:"",
+            dob:"",
+            items:[]
 
         }
     },
+    methods:{
+        submit:function(){
+            console.log(this.name,this.email,this.password,this.dob);
+            this.$emit("submit-item", this.email,this.name,this.password,this.dob);
+            this.email="";
+            this.name="";
+            this.dob="";
+            this.password="";
+        }
+    }
 }
 </script>
 
 <style scoped>
-.Form {
+/* .Form {
     min-height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: radial-gradient(circle, rgba(253, 252, 251, 1) 0%, rgba(226, 209, 195, 1) 100%);
-}
+} */
 
 .form-main {
     width: 450px;
     border: 1px solid #0000001f;
     border-radius: 20px;
     text-align: left;
-
+    box-shadow: 2px 2px 6px 1px rgba(0,0,0,0.75);
 }
 
 .form-main header {

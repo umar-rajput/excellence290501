@@ -2,19 +2,22 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <Form/>
+    <!-- <Form/> -->
+    <TableAddData/>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import Form from './components/Form.vue'
+// import Form from './components/Form.vue'
+import TableAddData from './components/TableAddData.vue'
 
 export default {
   name: 'App',
   components: {
     // HelloWorld,
-    Form
+    // Form,
+    TableAddData
   }
 }
 </script>
