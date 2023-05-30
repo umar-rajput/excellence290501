@@ -79,18 +79,46 @@ export default {
     components: { InputFields},
     data() {
         return {
-            name:"",
             email:"",
+            name:"",
             password:"",
             dob:"",
-            items:[]
+            // items:[]
 
         }
     },
+    watch:{
+        editEmail:function(newEmail){
+            console.log("watch ",newEmail.email,newEmail.name,newEmail.dob,newEmail.password);
+            this.email=newEmail.email;
+            this.name=newEmail.name;
+            this.dob=newEmail.dob;
+            this.password=newEmail.password;
+            // console.log(newEmail.email);
+        }
+    },
+    props:{
+        editEmail:{type:String,require:true},
+        // editName:{type:String,require:true},
+        // editDob:{type:String,require:true},
+        // editPassword:{type:String,require:true},
+        editIndex:{type:Number,require:true}
+    },
     methods:{
         submit:function(){
-            console.log(this.name,this.email,this.password,this.dob);
-            this.$emit("submit-item", this.email,this.name,this.password,this.dob);
+            console.log("Entered value ",this.email,this.name,this.dob,this.password, this.editIndex);
+            if(this.editIndex!== -1){
+                console.log("edit item");
+                this.$emit("edit-item",{
+                    editEmail:this.email,
+                    editName:this.name,
+                    editDob:this.dob,
+                    editPassword:this.password,
+                    editIndex:this.editIndex,
+                });
+            }else{
+                this.$emit("submit-item", this.email,this.name,this.dob,this.password);
+            }
             this.email="";
             this.name="";
             this.dob="";
@@ -136,4 +164,5 @@ export default {
 
 .btn {
     width: 100%;
-}</style>
+}
+</style>
