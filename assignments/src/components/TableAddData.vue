@@ -127,7 +127,8 @@ export default {
     min-height: 100vh;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding-top: 100px;
     align-items: center;
     flex-direction: column;
     align-items: center;

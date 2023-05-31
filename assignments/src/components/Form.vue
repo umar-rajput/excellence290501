@@ -1,19 +1,27 @@
 <template>
     <div class="Form">
+        <div class="ragisterHere">
+            <h2>Click here to Ragister!!</h2>
+            <button v-on:click="()=> TogglePopup('buttonTrigger')" class="register btn btn-dark">Register</button>
+        </div>
 
-        <div class="form-main">
-            <header>
-                <h3>Form</h3>
-            </header>
+        <PopUp v-if="popupTrigger.buttonTrigger" :TogglePopup="
+                ()=>TogglePopup('buttonTrigger')">
 
-            <div class="inputs">
-                <form v-on:submit.prevent>
-                    <input-fields>
+            
+            <div class="form-main">
+                <header>
+                    <h3>Form</h3>
+                </header>
+                
+                <div class="inputs">
+                    <form v-on:submit.prevent>
+                        <input-fields>
                         <template v-slot:email>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Enter Email Address</label>
                                 <input type="email" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Enter Email Address" v-model="email">
+                                placeholder="Enter Email Address" v-model="email">
                             </div>
                         </template>
                         <template v-slot:name>
@@ -27,14 +35,14 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Enter Date of Birth</label>
                                 <input type="date" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Enter Date of Birth" v-model="dob">
+                                placeholder="Enter Date of Birth" v-model="dob">
                             </div>
                         </template>
                         <template v-slot:password>
                             <div class="mb-3">
                                 <label for="inputPassword5" class="form-label">Enter Password</label>
                                 <input type="password" id="inputPassword5" class="form-control"
-                                    aria-labelledby="passwordHelpBlock" placeholder="Enter Password" v-model="password">
+                                aria-labelledby="passwordHelpBlock" placeholder="Enter Password" v-model="password">
                                 <div id="passwordHelpBlock" class="form-text">
                                     Your password must be 8-20 characters long, contain letters and numbers, and must not
                                     contain
@@ -59,31 +67,43 @@
                         </template>
                         <template v-slot:submit>
                             <div class="submit-button">
-                                <button type="button" class="btn btn-dark" v-on:click="submit">Submit</button>
+                                <button type="button" class="btn1 btn btn-dark" v-on:click="submit">Submit</button>
                             </div>
                         </template>
                     </input-fields>
                 </form>
             </div>
-
+            
         </div>
+    </PopUp>
 
     </div>
 </template>
 
 <script>
-import InputFields from './InputFields.vue'
+import InputFields from './InputFields.vue';
+import PopUp from './PopUp.vue';
+import { ref } from 'vue';
 
 export default {
     name: `Form`,
-    components: { InputFields},
+    components: {InputFields,PopUp},
     data() {
+        const popupTrigger=ref({
+            buttonTrigger:false,
+            timedTrigger:false
+        });
+        const TogglePopup=(trigger)=>{
+            popupTrigger.value[trigger]=!popupTrigger.value[trigger]
+        };
         return {
             email:"",
             name:"",
             password:"",
             dob:"",
-            // items:[]
+            // items:[],
+            popupTrigger,
+            TogglePopup,
 
         }
     },
@@ -123,7 +143,14 @@ export default {
             this.name="";
             this.dob="";
             this.password="";
-        }
+        },
+        arrange(){
+            console.log("arrange");
+            return alert("arrange");
+        },
+        // handlePromptClick(){
+        //     Swal
+        // }
     }
 }
 </script>
@@ -140,6 +167,7 @@ export default {
 
 .form-main {
     width: 450px;
+    background: #fff;
     border: 1px solid #0000001f;
     border-radius: 20px;
     text-align: left;
@@ -162,7 +190,8 @@ export default {
     display: none;
 }
 
-.btn {
+.btn1 {
     width: 100%;
 }
+
 </style>
